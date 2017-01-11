@@ -4,6 +4,8 @@ node_modules/
 elm-stuff/
 # elm-repl generated files
 repl-temp-*
+# webpack generated files
+dist/
 
 # =========================
 # Operating System Files
