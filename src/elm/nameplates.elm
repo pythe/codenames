@@ -1,4 +1,4 @@
-module Nameplates exposing (nameplates)
+module Nameplates exposing (view)
 
 import Types exposing (..)
 import Html exposing (..)
@@ -7,10 +7,14 @@ import Random
 import Random.List exposing (shuffle)
 
 
-nameplates : Model -> Html Msg
+view : Model -> Html Msg
+view =
+    nameplates << attendees
+
+
+nameplates : List Person -> Html Msg
 nameplates =
-    attendees
-        >> shuffle
+    shuffle
         >> flip Random.step (Random.initialSeed 42)
         >> Tuple.first
         >> List.map nameplate

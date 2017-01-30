@@ -1,8 +1,8 @@
 module Main exposing (..)
 
 import Types exposing (..)
-import Nameplates exposing (nameplates)
-import Status exposing (status)
+import Nameplates
+import Status
 import Person
 import Html exposing (..)
 
@@ -69,6 +69,6 @@ view model =
     body []
         [ h1 [] [ text "Sysadmin" ]
         , p [] [ text "Your chief sysadmin was too clever naming the servers. Restart all the green servers before the blues finish, but avoid restarting the util servers. One of the servers contains ransomware; connecting to it will encrypt the entire production cluster!" ]
-        , status model
-        , nameplates model
+        , Status.view model
+        , Nameplates.view model
         ]

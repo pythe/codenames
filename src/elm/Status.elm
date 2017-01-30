@@ -1,11 +1,23 @@
-module Status exposing (status)
+module Status exposing (view)
 
 import Types exposing (..)
 import Html exposing (..)
 
 
-status : Model -> Html Msg
-status model =
+type alias Status =
+    { blue : String
+    , green : String
+    , util : String
+    }
+
+
+view : Model -> Html Msg
+view =
+    statusView << viewModel
+
+
+viewModel : Model -> Status
+viewModel model =
     let
         discoveredRatio : List Person -> String
         discoveredRatio people =
@@ -17,8 +29,16 @@ status model =
                 |> List.map ((|>) people)
                 |> String.join " / "
     in
-        div []
-            [ div [] [ text <| "Green servers reloaded: " ++ discoveredRatio model.greenServers ]
-            , div [] [ text <| "Blue servers reloaded: " ++ discoveredRatio model.blueServers ]
-            , div [] [ text <| "Util servers crashed: " ++ discoveredRatio model.bystanders ]
-            ]
+        { green = discoveredRatio model.greenServers
+        , blue = discoveredRatio model.blueServers
+        , util = discoveredRatio model.bystanders
+        }
+
+
+statusView : Status -> Html Msg
+statusView status =
+    div []
+        [ div [] [ text <| "Green servers reloaded: " ++ status.green ]
+        , div [] [ text <| "Blue servers reloaded: " ++ status.blue ]
+        , div [] [ text <| "Util servers crashed: " ++ status.util ]
+        ]
